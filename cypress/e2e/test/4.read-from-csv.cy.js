@@ -1,15 +1,16 @@
 // ประกาศตัวแปร
 // อธิบายตัวแปรแบบง่ายๆ const = ตัวแปรที่ไม่สามารถอัพเดตค่าได้ภายหลัง
 // let = ตัวแปรที่สามารถเปลี่ยนค่าภายหลังได้
-const url = "https://www.amazon.com/"
+const url = 'https://www.amazon.com/'
 let productNames; 
+const title = 'Amazon'
 
 // import package neat-csv
 // หากใครยังไม่มีในใช้คำสั่งนี้ในการติดตั้ง npm install neat-csv@v5.2.0
-const neatCsv = require("neat-csv")
+const neatCsv = require('neat-csv')
 
 // ประกาศหัวเรื่องในการ Test
-describe("Sample Test", function() {
+describe('Read Data From CSV', function() {
 
   // ก่อนที่จะรัน test ทุกครั้งให้ทำอะไรก่อนบ้าง
   beforeEach(() => {  
@@ -28,8 +29,10 @@ describe("Sample Test", function() {
   
   // การประกาศ Logic Test
   it('Contains correct title', () => {
-  
-    cy.title().should('include', 'Amazon');
+    
+    // เช็คว่า title ของ page หน้าเว็บที่เราเข้ามีคำว่า Amazon อยู่ในนั้นไหม
+    // .should('include', title) หมายความว่ามีคำว่า Amazon อยู่ใน title นั้นไหม
+    cy.title().should('include', title);
   
   });
 

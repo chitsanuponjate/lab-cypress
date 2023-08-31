@@ -4,7 +4,7 @@ const text = "keyboard"
 const title = "Amazon"
 
 // ประกาศหัวเรื่องในการ Test
-describe('Amazon Testing', () => {
+describe('Before After', () => {
 
   
     // ก่อนที่จะรัน it ให้ทำอะไรก่อนบ้าง

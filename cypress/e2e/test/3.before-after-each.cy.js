@@ -1,6 +1,6 @@
 
 // ประกาศหัวเรื่องในการ Test
-describe('Amazon Testing', () => {
+describe('BeforeEach AfterEach', () => {
   
     // ก่อนที่จะรัน test ทุกครั้งให้ทำอะไรก่อนบ้าง
     beforeEach(() => {
