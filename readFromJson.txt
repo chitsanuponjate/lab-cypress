@@ -1,11 +1,20 @@
+
 // ประกาศชื่อ 
 describe('Amazon Testing', () => {
-  
+
+  // ประกาศตัวแปรที่ชื่อ jsonFile
+  let jsonFile;
+
   // ก่อนที่จะรัน it ให้ทำอะไรก่อนบ้าง
   beforeEach(() => {
 
     // ก่อนที่จะรัน Test ให้ cypress เข้า website ที่จะทำการ Test
     cy.visit('https://www.amazon.com/')
+
+    // โหลดข้อมูลจาก example.json เข้ามาที่ตัวแปร jsonFile
+    cy.fixture('example.json').then(data => {
+      jsonFile = data;
+    });
 
   })
 
@@ -14,19 +23,22 @@ describe('Amazon Testing', () => {
     cy.title().should('include', 'Amazon')
   })
 
-  it('Searches for a keyboard', () => {
+  it(`Searches for a product`, () => {
+    // เก็บค่าจาก json file มาเข้าที่ตัวแปร productToSearch 
+    const productToSearch = jsonFile.product;
 
     // ใส่คำว่า keyboard เข้า Input ที่มี Id เป็น twotabsearchtextbox
-    cy.get('#twotabsearchtextbox').type('keyboard')
+    cy.get('#twotabsearchtextbox').type(productToSearch)
     
     // กดปุ่มที่มีไอดี nav-search-submit-button
     cy.get('#nav-search-submit-button').click()
-
+    
     // check ว่า result ที่ออกมาเป็น keyboard หรือเปล่า
-    cy.get('.a-color-state.a-text-bold').should('contain.text', 'keyboard')
+    cy.get('.a-color-state.a-text-bold').should('contain.text', productToSearch)
     
   })
   
 })
+
 
 

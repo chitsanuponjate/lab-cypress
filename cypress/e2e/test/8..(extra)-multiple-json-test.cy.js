@@ -1,0 +1,56 @@
+const url = "https://www.amazon.com/"
+
+// ประกาศชื่อ 
+describe('Amazon Testing', () => {
+
+  // ประกาศตัวแปรที่ชื่อ jsonFile
+  let jsonFile;
+
+  // ก่อนที่จะรัน it ให้ทำอะไรก่อนบ้าง
+  beforeEach(() => {
+    
+    // ก่อนที่จะรัน Test ให้ cypress เข้า website ที่จะทำการ Test
+    cy.visit(url)
+
+    // โหลดข้อมูลจาก example.json เข้ามาที่ตัวแปร jsonFile
+    cy.fixture('example.json').then(data => {
+      jsonFile = data;
+    });
+    
+
+  })
+
+  afterEach(() => {
+    cy.visit(url)
+  });
+  
+  // การประกาศ Logic Test
+  it('Contains correct title', () => {
+    // เช็ค title ของ website ว่ามีคำว่า Amazon อยู่ใน Title ไหม
+    cy.title().should('include', 'Amazon')
+  })
+
+  // การประกาศ Logic Test
+  it(`Searches for a product`, () => {
+    // เก็บค่าจาก json file มาเข้าที่ตัวแปร productToSearch 
+    const productToSearch = jsonFile.product;
+
+    productToSearch.forEach(element => {
+      
+      // เคลียร์ Input แล้วใส่คำว่า keyboard เข้า Input ที่มี Id เป็น twotabsearchtextbox
+      cy.get('#twotabsearchtextbox').clear().type(element)
+      
+      // กดปุ่มที่มีไอดี nav-search-submit-button
+      cy.get('#nav-search-submit-button').click()
+      
+      // check ว่า result ที่ออกมาเป็น keyboard หรือเปล่า
+      cy.get('.a-color-state.a-text-bold').should('contain.text', element)
+
+
+    });
+    
+  })
+  
+})
+  
+  
